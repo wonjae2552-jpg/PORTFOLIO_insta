@@ -12,8 +12,6 @@
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
         .story-ring { padding: 4px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(8px); }
-        /* 16:9 컨테이너 비율 유지 */
-        .aspect-16-9 { aspect-ratio: 16 / 9; }
     </style>
 </head>
 <body class="bg-[#FAFAFA]">
@@ -50,22 +48,22 @@
         </div>
     </main>
 
-    <!-- Project Detail Modal: 80% Size & 8:2 Ratio -->
-    <div id="project-modal" class="modal-overlay hidden p-6">
-        <div class="bg-white w-[80vw] h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex relative">
+    <!-- Project Detail Modal: 반응형 80% 사이즈 & 이미지/텍스트 비율 최적화 -->
+    <div id="project-modal" class="modal-overlay hidden p-4 md:p-6">
+        <div class="bg-white w-[80vw] h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl z-50 text-white bg-black/50 w-10 h-10 rounded-full hover:bg-black">&times;</button>
             
-            <!-- Image Area: 80% (flex-4) -->
-            <div class="flex-[4] bg-black relative overflow-hidden flex items-center">
+            <!-- 이미지 영역: 데스크톱 flex-[4](80%), 모바일 flex-[9](90%) -->
+            <div class="flex-[9] md:flex-[4] bg-black relative overflow-hidden flex items-center">
                 <div id="slider-container" class="flex transition-transform duration-500 ease-in-out h-full w-full"></div>
                 <button onclick="moveSlide(-1)" class="absolute left-4 text-white text-2xl hover:text-gray-300">&#10094;</button>
                 <button onclick="moveSlide(1)" class="absolute right-4 text-white text-2xl hover:text-gray-300">&#10095;</button>
             </div>
             
-            <!-- Text Area: 20% (flex-1) -->
-            <div class="flex-[1] p-8 bg-white border-l border-gray-100 overflow-y-auto">
-                <h3 id="modal-title" class="text-2xl font-bold mb-4">Project Title</h3>
-                <p class="text-gray-600 leading-relaxed">상세 설명이 들어가는 공간입니다. 8:2 비율을 유지합니다.</p>
+            <!-- 텍스트 영역: 데스크톱 flex-[1](20%), 모바일 flex-[1](10%) -->
+            <div class="flex-[1] p-6 md:p-8 bg-white border-t md:border-l border-gray-100 overflow-y-auto">
+                <h3 id="modal-title" class="text-xl md:text-2xl font-bold mb-4">Project Title</h3>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed">상세 설명이 들어가는 공간입니다.</p>
             </div>
         </div>
     </div>
@@ -86,6 +84,7 @@
                     <div class="space-y-4 text-sm">
                         <p>• 2025 광운대학교 건축학과 졸업</p>
                         <p>• 2023 건축 설계 인턴십 과정 수료</p>
+                        <p>• 2022 건축공모전 입상</p>
                     </div>
                 </div>
                 <div>
@@ -93,8 +92,10 @@
                         SKILL SET <i id="skill-icon" class="fas fa-chevron-down"></i>
                     </button>
                     <div id="skill-list" class="hidden mt-4 space-y-5">
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>AutoCAD</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-black w-[95%]"></div></div></div>
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>Rhinoceros</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-800 w-[85%]"></div></div></div>
+                        <div class="space-y-1"><div class="flex justify-between text-xs font-semibold"><span>AutoCAD</span><span>95%</span></div><div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-black w-[95%]"></div></div></div>
+                        <div class="space-y-1"><div class="flex justify-between text-xs font-semibold"><span>Rhinoceros</span><span>85%</span></div><div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-800 w-[85%]"></div></div></div>
+                        <div class="space-y-1"><div class="flex justify-between text-xs font-semibold"><span>Revit</span><span>60%</span></div><div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-600 w-[60%]"></div></div></div>
+                        <div class="space-y-1"><div class="flex justify-between text-xs font-semibold"><span>Photoshop</span><span>70%</span></div><div class="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-500 w-[70%]"></div></div></div>
                     </div>
                 </div>
             </div>
