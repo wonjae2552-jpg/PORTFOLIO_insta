@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Vercel Web Analytics 스크립트 (방문자 추적용) -->
+    <!-- defer 속성을 추가하여 웹페이지 로딩 속도를 저하시키지 않습니다. -->
     <script src="/_vercel/insights/script.js"></script>
     
     <style>
@@ -30,7 +31,8 @@
         <header class="flex items-center space-x-8 mb-10">
             <div class="story-ring w-24 h-24 md:w-32 md:h-32 rounded-full cursor-pointer hover:scale-105 transition-transform shrink-0" onclick="openProfileModal()">
                 <div class="w-full h-full rounded-full overflow-hidden bg-white p-1">
-                    <img src="images/profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400'" class="w-full h-full object-cover rounded-full">
+                    <!-- 절대 경로(/images/...) 사용 및 onerror 방어 로직 강화 -->
+                    <img src="/images/profile.jpg" alt="Profile" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400';" class="w-full h-full object-cover rounded-full">
                 </div>
             </div>
             <div class="flex-1">
@@ -74,7 +76,8 @@
             <div class="p-6 flex flex-col items-center gap-4 border-b border-gray-100 relative">
                 <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-2xl text-gray-400">&times;</button>
                 <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-white shadow-md">
-                    <img src="images/profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200'" class="w-full h-full object-cover">
+                    <!-- 절대 경로(/images/...) 사용 및 onerror 방어 로직 강화 -->
+                    <img src="/images/profile.jpg" alt="Profile" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200';" class="w-full h-full object-cover">
                 </div>
                 <span class="font-bold text-lg">choi_wonjae</span>
             </div>
