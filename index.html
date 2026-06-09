@@ -11,7 +11,9 @@
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
         .story-ring { padding: 4px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(8px); }
+        /* 16:9 컨테이너 비율 유지 */
+        .aspect-16-9 { aspect-ratio: 16 / 9; }
     </style>
 </head>
 <body class="bg-[#FAFAFA]">
@@ -24,7 +26,6 @@
 
     <main class="max-w-4xl mx-auto pt-24 px-4 pb-12">
         <header class="flex items-center space-x-8 mb-10">
-            <!-- 메인 페이지 프로필 사진은 이전 크기로 복구 -->
             <div class="story-ring w-24 h-24 md:w-32 md:h-32 rounded-full cursor-pointer hover:scale-105 transition-transform shrink-0" onclick="openProfileModal()">
                 <div class="w-full h-full rounded-full overflow-hidden bg-white p-1">
                     <img src="https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400" class="w-full h-full object-cover rounded-full">
@@ -33,9 +34,6 @@
             <div class="flex-1">
                 <h2 class="text-2xl md:text-3xl font-light">choi_wonjae</h2>
                 <p class="mt-2 text-sm md:text-md text-gray-500 font-medium">Architecture Student</p>
-                <div class="flex mt-4 space-x-5 text-sm">
-                    <p><b>4</b> Projects</p>
-                </div>
             </div>
         </header>
 
@@ -52,18 +50,22 @@
         </div>
     </main>
 
-    <!-- Project Detail Modal -->
-    <div id="project-modal" class="modal-overlay hidden p-4">
-        <div class="bg-white w-full max-w-3xl rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
-            <button onclick="closeModal()" class="absolute top-3 right-3 text-3xl z-30 text-white md:text-black">&times;</button>
-            <div class="w-full md:w-1/2 bg-black h-64 md:h-[450px] flex items-center justify-center relative overflow-hidden">
-                <div id="slider-container" class="flex transition-transform duration-300 ease-out h-full w-full"></div>
-                <button onclick="moveSlide(-1)" class="absolute left-2 text-white bg-black/30 w-8 h-8 rounded-full">&#10094;</button>
-                <button onclick="moveSlide(1)" class="absolute right-2 text-white bg-black/30 w-8 h-8 rounded-full">&#10095;</button>
+    <!-- Project Detail Modal: 80% Size & 8:2 Ratio -->
+    <div id="project-modal" class="modal-overlay hidden p-6">
+        <div class="bg-white w-[80vw] h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl z-50 text-white bg-black/50 w-10 h-10 rounded-full hover:bg-black">&times;</button>
+            
+            <!-- Image Area: 80% (flex-4) -->
+            <div class="flex-[4] bg-black relative overflow-hidden flex items-center">
+                <div id="slider-container" class="flex transition-transform duration-500 ease-in-out h-full w-full"></div>
+                <button onclick="moveSlide(-1)" class="absolute left-4 text-white text-2xl hover:text-gray-300">&#10094;</button>
+                <button onclick="moveSlide(1)" class="absolute right-4 text-white text-2xl hover:text-gray-300">&#10095;</button>
             </div>
-            <div class="p-6 w-full md:w-1/2">
-                <h3 id="modal-title" class="text-xl font-bold mb-3">Project Title</h3>
-                <p class="text-gray-600 text-sm leading-relaxed">건축 프로젝트 상세 내역입니다.</p>
+            
+            <!-- Text Area: 20% (flex-1) -->
+            <div class="flex-[1] p-8 bg-white border-l border-gray-100 overflow-y-auto">
+                <h3 id="modal-title" class="text-2xl font-bold mb-4">Project Title</h3>
+                <p class="text-gray-600 leading-relaxed">상세 설명이 들어가는 공간입니다. 8:2 비율을 유지합니다.</p>
             </div>
         </div>
     </div>
@@ -71,7 +73,6 @@
     <!-- Profile Modal -->
     <div id="profile-modal" class="modal-overlay hidden p-4">
         <div class="bg-white w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <!-- 프로필 모달 내 사진 크기 확대 -->
             <div class="p-6 flex flex-col items-center gap-4 border-b border-gray-100 relative">
                 <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-2xl text-gray-400">&times;</button>
                 <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-white shadow-md">
@@ -85,7 +86,6 @@
                     <div class="space-y-4 text-sm">
                         <p>• 2025 광운대학교 건축학과 졸업</p>
                         <p>• 2023 건축 설계 인턴십 과정 수료</p>
-                        <p>• 2022 건축공모전 입상</p>
                     </div>
                 </div>
                 <div>
@@ -93,10 +93,8 @@
                         SKILL SET <i id="skill-icon" class="fas fa-chevron-down"></i>
                     </button>
                     <div id="skill-list" class="hidden mt-4 space-y-5">
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>AutoCAD</span><span class="text-[10px] text-gray-400">Expert</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-black w-[95%]"></div></div></div>
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>Rhinoceros</span><span class="text-[10px] text-gray-400">Advanced</span></div><div class="h-full h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-800 w-[85%]"></div></div></div>
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>Revit</span><span class="text-[10px] text-gray-400">Intermediate</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-600 w-[60%]"></div></div></div>
-                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>Photoshop</span><span class="text-[10px] text-gray-400">Intermediate</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-500 w-[70%]"></div></div></div>
+                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>AutoCAD</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-black w-[95%]"></div></div></div>
+                        <div class="space-y-2"><div class="flex justify-between text-sm font-semibold"><span>Rhinoceros</span></div><div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden"><div class="h-full bg-gray-800 w-[85%]"></div></div></div>
                     </div>
                 </div>
             </div>
@@ -105,9 +103,9 @@
 
     <script>
         const projects = [
-            { title: "Graduation Project", imgs: ["https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600"] },
-            { title: "Competition Work", imgs: ["https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=600", "https://images.unsplash.com/photo-1582063289852-62e3a244f77c?w=600"] },
-            { title: "Studio Design", imgs: ["https://images.unsplash.com/photo-1545638424-95eb6db7e35b?w=600"] }
+            { title: "Graduation Project", imgs: ["https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1200", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200"] },
+            { title: "Competition Work", imgs: ["https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=1200", "https://images.unsplash.com/photo-1582063289852-62e3a244f77c?w=1200"] },
+            { title: "Studio Design", imgs: ["https://images.unsplash.com/photo-1545638424-95eb6db7e35b?w=1200"] }
         ];
 
         let currentIdx = 0;
@@ -117,7 +115,7 @@
             activeProject = projects[idx];
             currentIdx = 0;
             const container = document.getElementById('slider-container');
-            container.innerHTML = activeProject.imgs.map(img => `<img src="${img}" class="min-w-full h-full object-cover">`).join('');
+            container.innerHTML = activeProject.imgs.map(img => `<div class="min-w-full h-full flex items-center justify-center"><img src="${img}" class="max-w-full max-h-full object-contain"></div>`).join('');
             document.getElementById('modal-title').innerText = activeProject.title;
             updateSlider();
             document.getElementById('project-modal').classList.remove('hidden');
