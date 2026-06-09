@@ -8,13 +8,13 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; user-select: none; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
         .story-ring { padding: 4px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(8px); }
     </style>
 </head>
-<body class="bg-[#FAFAFA]">
+<body class="bg-[#FAFAFA]" oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
     <nav class="fixed w-full z-40 glass border-b border-gray-200">
         <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -26,7 +26,7 @@
         <header class="flex items-center space-x-8 mb-10">
             <div class="story-ring w-24 h-24 md:w-32 md:h-32 rounded-full cursor-pointer hover:scale-105 transition-transform shrink-0" onclick="openProfileModal()">
                 <div class="w-full h-full rounded-full overflow-hidden bg-white p-1">
-                    <img src="https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400" class="w-full h-full object-cover rounded-full">
+                    <img src="images/profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400'" class="w-full h-full object-cover rounded-full">
                 </div>
             </div>
             <div class="flex-1">
@@ -48,19 +48,15 @@
         </div>
     </main>
 
-    <!-- Project Detail Modal: 반응형 80% 사이즈 & 이미지/텍스트 비율 최적화 -->
+    <!-- Project Detail Modal -->
     <div id="project-modal" class="modal-overlay hidden p-4 md:p-6">
         <div class="bg-white w-[80vw] h-[80vh] rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl z-50 text-white bg-black/50 w-10 h-10 rounded-full hover:bg-black">&times;</button>
-            
-            <!-- 이미지 영역: 데스크톱 flex-[4](80%), 모바일 flex-[9](90%) -->
             <div class="flex-[9] md:flex-[4] bg-black relative overflow-hidden flex items-center">
                 <div id="slider-container" class="flex transition-transform duration-500 ease-in-out h-full w-full"></div>
-                <button onclick="moveSlide(-1)" class="absolute left-4 text-white text-2xl hover:text-gray-300">&#10094;</button>
-                <button onclick="moveSlide(1)" class="absolute right-4 text-white text-2xl hover:text-gray-300">&#10095;</button>
+                <button onclick="moveSlide(-1)" class="absolute left-4 text-white text-2xl hover:text-gray-300 z-50">&#10094;</button>
+                <button onclick="moveSlide(1)" class="absolute right-4 text-white text-2xl hover:text-gray-300 z-50">&#10095;</button>
             </div>
-            
-            <!-- 텍스트 영역: 데스크톱 flex-[1](20%), 모바일 flex-[1](10%) -->
             <div class="flex-[1] p-6 md:p-8 bg-white border-t md:border-l border-gray-100 overflow-y-auto">
                 <h3 id="modal-title" class="text-xl md:text-2xl font-bold mb-4">Project Title</h3>
                 <p class="text-sm md:text-base text-gray-600 leading-relaxed">상세 설명이 들어가는 공간입니다.</p>
@@ -74,7 +70,7 @@
             <div class="p-6 flex flex-col items-center gap-4 border-b border-gray-100 relative">
                 <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-2xl text-gray-400">&times;</button>
                 <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-white shadow-md">
-                    <img src="https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200" class="w-full h-full object-cover">
+                    <img src="images/profile.jpg" onerror="this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200'" class="w-full h-full object-cover">
                 </div>
                 <span class="font-bold text-lg">choi_wonjae</span>
             </div>
@@ -103,6 +99,14 @@
     </div>
 
     <script>
+        // 저작권 방어 스크립트
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
+                alert("저작권 보호를 위해 개발자 도구 사용이 제한됩니다.");
+                return false;
+            }
+        });
+
         const projects = [
             { title: "Graduation Project", imgs: ["https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1200", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200"] },
             { title: "Competition Work", imgs: ["https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=1200", "https://images.unsplash.com/photo-1582063289852-62e3a244f77c?w=1200"] },
