@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture Portfolio | 최원제</title>
-    <!-- 브라우저 탭 아이콘(파비콘) 추가 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,13 +32,13 @@
         <header class="flex items-center space-x-8 mb-10">
             <div class="story-ring w-24 h-24 md:w-32 md:h-32 rounded-full cursor-pointer hover:scale-105 transition-transform shrink-0" onclick="openProfileModal()">
                 <div class="w-full h-full rounded-full overflow-hidden bg-gray-200 p-1 flex items-center justify-center">
-                    <!-- 상대 경로로 수정 및 대체 이미지 방어 로직 강화 -->
-                    <img src="images/profile.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400';" class="w-full h-full object-cover rounded-full bg-white">
+                    <!-- object-top 추가: 세로로 긴 사진일 경우 얼굴이 있는 위쪽을 기준으로 잘라서 보여줌 -->
+                    <img src="images/profile.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=400';" class="w-full h-full object-cover object-top rounded-full bg-white">
                 </div>
             </div>
             <div class="flex-1">
                 <h2 class="text-2xl md:text-3xl font-light">choi_wonjae</h2>
-                <p class="mt-2 text-sm md:text-md text-gray-500 font-medium">Architecture Student</p>
+                <p class="mt-2 text-sm md:text-md text-gray-500 font-medium">논리적인 공간 기획부터 디테일한 구현까지 | Junior Architectural Designer, B.Arch</p>
             </div>
         </header>
 
@@ -50,7 +49,6 @@
             <div class="aspect-square bg-gray-200 cursor-pointer overflow-hidden" onclick="openModal(1)">
                 <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=600" class="w-full h-full object-cover hover:opacity-80 transition-opacity">
             </div>
-            <!-- 3번째 깨진 이미지 링크를 정상 작동하는 건축물 이미지로 교체 -->
             <div class="aspect-square bg-gray-200 cursor-pointer overflow-hidden" onclick="openModal(2)">
                 <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600" class="w-full h-full object-cover hover:opacity-80 transition-opacity">
             </div>
@@ -79,8 +77,8 @@
             <div class="p-6 flex flex-col items-center gap-4 border-b border-gray-100 relative">
                 <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-2xl text-gray-400">&times;</button>
                 <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border-2 border-white shadow-md flex items-center justify-center">
-                    <!-- 상대 경로로 수정 -->
-                    <img src="images/profile.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200';" class="w-full h-full object-cover bg-white">
+                    <!-- object-top 추가 -->
+                    <img src="images/profile.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1536895058696-a69b1c7ba34d?w=200';" class="w-full h-full object-cover object-top bg-white">
                 </div>
                 <span class="font-bold text-lg">choi_wonjae</span>
             </div>
@@ -109,7 +107,6 @@
     </div>
 
     <script>
-        // 저작권 방어 스크립트
         document.addEventListener('keydown', function(e) {
             if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
                 alert("저작권 보호를 위해 개발자 도구 사용이 제한됩니다.");
@@ -120,7 +117,6 @@
         const projects = [
             { title: "Graduation Project", imgs: ["https://images.unsplash.com/photo-1513694203232-719a280e022f?w=1200", "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200"] },
             { title: "Competition Work", imgs: ["https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=1200", "https://images.unsplash.com/photo-1582063289852-62e3a244f77c?w=1200"] },
-            // 세 번째 프로젝트의 상세 모달 이미지 링크도 수정
             { title: "Studio Design", imgs: ["https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200"] }
         ];
 
